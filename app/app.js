@@ -20,7 +20,7 @@ $(document).ready(function () {
 
   //this is what happens when the button is clicked
   $(".btn-primary").on('click', function (e) {
-    var selValue = $('input[name=exampleRadios]:checked').val();
+    var selValue = $('input[name=originalradio]:checked').val();
     var date = new Date()
     var isoDate = date.toISOString()
     localStorage.setItem(isoDate, selValue);
@@ -36,6 +36,7 @@ $(document).ready(function () {
     for (var i = 0; i < uneditedDatesArr.length; i++) {
       // var prettyDate = uneditedDatesArr[i].slice(0, 10)
       $(".dropdown-menu").add(`<a class="dropdown-item" type="button" id="date">${uneditedDatesArr[i]}</a>`).appendTo($(".dropdown-menu"))
+      //FIX: this still adds things it shouldn't. send help
       $(".dropdown-item").on("click", function () {
         $(".popup, .popup-content").addClass("active");
         var editThisOne = ($(this).text())
@@ -45,16 +46,17 @@ $(document).ready(function () {
   })
 
   $(".btn-secondary").on("click", function() {
-    var updateVal = $('input[name=exampleRadios]:checked').val();
+    var updateVal = $('input[name=popupradio]:checked').val();
+    console.log(updateVal)
     var wholeHeading = ($("h2").text())
-    var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length -1))
+    var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length))
     
     localStorage.removeItem(currentWorkingDate)
     localStorage.setItem(currentWorkingDate, updateVal)
     refreshChart()
   })
 
-  $("document").on("click", function () {
+  $("window.document").on("click", function () {
     $(".popup, .popup-content").removeClass("active");
   });
 
