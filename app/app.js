@@ -26,7 +26,7 @@ $(document).ready(function () {
     localStorage.setItem(isoDate, selValue);
 
     refreshChart()
-    // if(isoDate === isoDate) { //date is the same (this is not the way to write this)
+    // if(isoDate === isoDate) { //date is the same (this is not the way to write this) // FIXME: figure out how to check if date already exists
     //   alert("Hey! You've already written your coffee intake for today.") //DO NOT WRITE TO DB
     // }
   });
@@ -34,10 +34,29 @@ $(document).ready(function () {
 
   $(".btn-success").on("click", function () {
     for (var i = 0; i < uneditedDatesArr.length; i++) {
-      var prettyDate = uneditedDatesArr[i].slice(0, 10)
-      $(".dropdown-menu").add(`<a class="dropdown-item" href="#">${prettyDate}<br></a>`).appendTo($(".dropdown-menu"))
+      // var prettyDate = uneditedDatesArr[i].slice(0, 10)
+      $(".dropdown-menu").add(`<a class="dropdown-item" type="button" id="date">${uneditedDatesArr[i]}</a>`).appendTo($(".dropdown-menu"))
+      $(".dropdown-item").on("click", function () {
+        $(".popup, .popup-content").addClass("active");
+        var editThisOne = ($(this).text())
+        $("h2").replaceWith(`<h2>Change Your Answer for ${editThisOne}</h2>`)
+      });
     }
   })
+
+  $(".btn-secondary").on("click", function() {
+    var updateVal = $('input[name=exampleRadios]:checked').val();
+    var wholeHeading = ($("h2").text())
+    var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length -1))
+    
+    localStorage.removeItem(currentWorkingDate)
+    localStorage.setItem(currentWorkingDate, updateVal)
+    refreshChart()
+  })
+
+  $("document").on("click", function () {
+    $(".popup, .popup-content").removeClass("active");
+  });
 
   // delete item
   $('.btn-warning').on('click', function () {
