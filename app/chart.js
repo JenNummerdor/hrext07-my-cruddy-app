@@ -1,3 +1,4 @@
+//this object generates data for all parts of the chart
 var getDataForChart = {
   getMasterFunc: (function () {
     var masterArr = [];
@@ -50,7 +51,6 @@ var getDataForChart = {
   }
 }
 
-
 //will return all the dates in local storage
 var getDatesInLocalStorage = function () {
   var datesArr = []
@@ -60,7 +60,6 @@ var getDatesInLocalStorage = function () {
       datesArr.push(key)
     }
   }
-  console.log(datesArr)
   return datesArr;
 }
 
@@ -72,6 +71,7 @@ var chartData = [
   ["diet"].concat(getDataForChart.getDietFunc()),
   ["exercise"].concat(getDataForChart.getExerciseFunc()),
 ]
+
 //will generate the chart!
 var chart = c3.generate({
   data: {

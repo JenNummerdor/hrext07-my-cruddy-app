@@ -24,7 +24,7 @@ $(document).ready(function () {
   }
 
   //this is what happens when the submit button is clicked
-  $(".btn-primary").on('click', function () { //IF YOU BREAK IT, PUT IT BACK
+  $(".btn-primary").on('click', function () { 
     var selValue1 = $('input[name=originalradio]:checked').val();
     var selValue2 = $('input[name=originalradio2]:checked').val();
     var selValue3 = $('input[name=originalradio3]:checked').val();
@@ -40,7 +40,7 @@ $(document).ready(function () {
     // }
   });
 
-//click on green edit button
+  //click on green edit button
   $(".btn-success").on("click", function () {
     for (var i = 0; i < uneditedDatesArr.length; i++) {
       $(".dropdown-menu").add(`<a class="dropdown-item" type="button" id="date">${uneditedDatesArr[i]}</a>`).appendTo($(".dropdown-menu"))
@@ -50,6 +50,7 @@ $(document).ready(function () {
         // var prettyDate = uneditedDatesArr[i].slice(0, 10)
         var editThisOne = ($(this).text())
         $("header").replaceWith(`<h2 style="color: red">Change Your Answer for ${editThisOne}</h2>`)
+        
         $(".btn-group").css({
           "display": "none"
         })
@@ -124,73 +125,77 @@ $(document).ready(function () {
   })
 
   //statistical data
-  var wellbeingArr = getDataForChart.getWellBeingFunc()
-  var wellbeingMean = ((wellbeingArr.map(x => eval(x))).reduce((x, y) => x + y) / wellbeingArr.length)
-  var getAVals = function () {
-    var a = []
-    for (var i = 0; i < wellbeingArr.length; i++) {
-      a.push(eval(wellbeingArr[i]) - wellbeingMean)
-    }
-    return a;
-  }
 
+  //Step 1: get a working array for each type of data
+  var wellbeingArr = getDataForChart.getWellBeingFunc()
   var sleepArr = getDataForChart.getSleepFunc()
-  var sleepMean = ((sleepArr.map(x => eval(x))).reduce((x, y) => x + y) / sleepArr.length)
-  var getBVals = function () {
+  var socialArr = getDataForChart.getSocialFunc()
+  var dietArr = getDataForChart.getDietFunc()
+  var exerciseArr = getDataForChart.getExerciseFunc()
+
+  //Step 2: find the average of each array
+  var getTheMean = function (varName) {
+    return ((varName.map(x => eval(x))).reduce((x, y) => x + y) / varName.length)
+  }
+  var wellbeingMean = getTheMean(wellbeingArr)
+  var sleepMean = getTheMean(sleepArr)
+  var socialMean = getTheMean(socialArr)
+  var dietMean = getTheMean(dietArr)
+  var exerciseMean = getTheMean(exerciseArr)
+
+  //Step 3: get the comparison values for each data point: each value in the original array minus the mean (Step1 - Step2)
+  var getBVals = function (varArr, varMean) { //comparison as "B"
     var b = []
-    for (var i = 0; i < sleepArr.length; i++) {
-      b.push(eval(sleepArr[i]) - sleepMean)
+    for (var i = 0; i < varArr.length; i++) {
+      b.push(eval(varArr[i]) - varMean)
     }
     return b;
   }
+  var wellBeingAVals = getBVals(wellbeingArr, wellbeingMean)
+  var sleepBVals = getBVals(sleepArr, sleepMean)
+  var socialBVals = getBVals(socialArr, socialMean)
+  var dietBVals = getBVals(dietArr, dietMean)
+  var exerciseBVals = getBVals(exerciseArr, exerciseMean)
 
-  var multiplyAAndB = function () {
-    var aArr = getAVals() //[1, -1]
-    var bArr = getBVals() //[0.5, -0.5]
+  //Step 4: multiply each variable with wellbeing, reduce it into a single value
+  var multiplyAAndB = function (varAVals, varBVals) {
     var resultArr = [];
-    for (var i = 0; i < aArr.length; i++) {
-      resultArr.push(aArr[i] * bArr[i])
+    for (var i = 0; i < varAVals.length; i++) {
+      resultArr.push(varAVals[i] * varBVals[i])
     }
     return resultArr.reduce((x, y) => x + y)
   }
+  var sleepMult = multiplyAAndB(wellBeingAVals, sleepBVals)
+  var socialMult = multiplyAAndB(wellBeingAVals, socialBVals)
+  var dietMult = multiplyAAndB(wellBeingAVals, dietBVals)
+  var exerciseMult = multiplyAAndB(wellBeingAVals, exerciseBVals)
 
-  var getASquared = function () {
-    var aArr = getAVals() //[1, -1]
+  //Step 5: Use the original Data from Step 3 to square the values and reduce into single value
+  var getSquaredVals = function (arrName) {
     var resultArr = [];
-    for (var i = 0; i < aArr.length; i++) {
-      resultArr.push(aArr[i] * aArr[i])
+    for (var i = 0; i < arrName.length; i++) {
+      resultArr.push(arrName[i] * arrName[i])
     }
     return resultArr.reduce((x, y) => x + y)
   }
+  var squaredWellBeing = getSquaredVals(wellBeingAVals)
+  var squaredSleep = getSquaredVals(sleepBVals)
+  var squaredSocial = getSquaredVals(socialBVals)
+  var squaredDiet = getSquaredVals(dietBVals)
+  var squaredExercise = getSquaredVals(exerciseBVals)
 
-  var getBSquared = function () {
-    var bArr = getBVals() //[1, -1]
-    var resultArr = [];
-    for (var i = 0; i < bArr.length; i++) {
-      resultArr.push(bArr[i] * bArr[i])
-    }
-    return resultArr.reduce((x, y) => x + y)
+  var relationalDataBetweenAAndB = function (squaredB, multB) {
+    return (multB / (Math.sqrt(squaredWellBeing * squaredB)))
   }
 
-  var relationalDataBetweenAAndB = function () {
-    console.log(multiplyAAndB())
-    return (multiplyAAndB() / (Math.sqrt(getASquared() * getBSquared())))
-  }
+  var wellToSleepCorr = relationalDataBetweenAAndB(squaredSleep, sleepMult)
+  var wellToSocialCorr = relationalDataBetweenAAndB(squaredSocial, socialMult)
+  var wellToDietCorr = relationalDataBetweenAAndB(squaredDiet, dietMult)
+  var wellToExerCorr = relationalDataBetweenAAndB(squaredExercise, exerciseMult)
 
-  // if(wellbeingArr.length <4) {
-  //   $(".sleepsig").append("You will want at least three points of data before proceeding")
-  // }
-  $(".sleepsig").append(relationalDataBetweenAAndB())
-
-  //NOT DONE
-
-  var socialArr = getDataForChart.getSocialFunc()
-  var socialMean = ((socialArr.map(x => eval(x))).reduce((x, y) => x + y) / socialArr.length)
-
-  var dietArr = getDataForChart.getDietFunc()
-  var dietMean = ((dietArr.map(x => eval(x))).reduce((x, y) => x + y) / dietArr.length)
-
-  var exerciseArr = getDataForChart.getExerciseFunc()
-  var exerciseMean = ((exerciseArr.map(x => eval(x))).reduce((x, y) => x + y) / exerciseArr.length)
+  $(".sleepsig").append(wellToSleepCorr)
+  $(".socialsig").append(wellToSocialCorr)
+  $(".dietsig").append(wellToDietCorr)
+  $(".exercisesig").append(wellToExerCorr)
 
 });
