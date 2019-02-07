@@ -20,6 +20,5 @@ Create Read Update and Delete framework using JS
 <!-- Monday Tasks -->
 - [√] Attach click handler to newly created data -> load graph (c3)
 - [ ] Load dates from edit menu
-- [ ] 
 - [ ] Add another form and get new form to display on graph
 - [ ] TOASTER ACTION
