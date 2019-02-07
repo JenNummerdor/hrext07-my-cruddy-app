@@ -1,12 +1,32 @@
-//will return all the cups in local storage
-var getCupsInLocalStorage = function () {
-  var cupsArr = []
+//will return all data in local storage
+var getDataForChart = function () {
+  var masterArr = []
   for (var key in localStorage) {
     if (typeof localStorage[key] === 'string') {
-      cupsArr.push(localStorage[key])
+      masterArr.push(localStorage[key])
     }
   }
-  return cupsArr;
+    var cupsArr = []
+    for(var i = 0; i < masterArr.length; i++) {
+      cupsArr.push(masterArr[i][0])
+    }
+  var sleepArr = []
+  for(var i = 0; i < masterArr.length; i++) {
+    sleepArr.push(masterArr[i][1])
+  }
+  var socialArr = []
+  for(var i = 0; i < masterArr.length; i++) {
+    socialArr.push(masterArr[i][1])
+  }
+  var dietArr = []
+  for(var i = 0; i < masterArr.length; i++) {
+    dietArr.push(masterArr[i][1])
+  }
+  var exerciseArr = []
+  for(var i = 0; i < masterArr.length; i++) {
+    exerciseArr.push(masterArr[i][1])
+  }
+  return cupsArr//, cupsArr, sleepArr, socialArr, dietArr, exerciseArr;
 }
 
   //will return all the dates in local storage
@@ -28,7 +48,8 @@ var chart = c3.generate({
     //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
     columns: [
       ['x'].concat(getDatesInLocalStorage()),
-      ["cups of coffee"].concat(getCupsInLocalStorage()),
+      ["cups of coffee"].concat(getDataForChart()),
+      // ["hours of sleep"].concat(getHoursInLocalStorage()),
     ]
   },
   axis: {
@@ -40,31 +61,3 @@ var chart = c3.generate({
     }
   }
 });
-
-
-
-//End of the Graph 
-
-//   //the Graph
-//   var chart = c3.generate({
-//     bindto: '#chart',
-//     data: {
-//       columns: data,
-//       type : 'pie',
-//       labels: true,
-//       colors: {
-//           sleep: '#494344',
-//           eat: '#625159',
-//           code: '#7c4540',
-//           relax: '#99424f',
-//           other: '#9f5561',
-//         }
-//     },
-//       pie: {
-//       label: {
-//           format: function (value) {
-//               return value + ' hours';
-//           },
-//       },
-//   },
-// });

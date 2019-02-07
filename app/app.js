@@ -7,7 +7,7 @@ $(document).ready(function () {
     chart.load({
       columns: [
         ['x'].concat(getDatesInLocalStorage()),
-        ["cups of coffee"].concat(getCupsInLocalStorage()),
+        ["cups of coffee"].concat(getDataForChart()),
       ]
     })
     for (let key in localStorage) {
@@ -20,10 +20,15 @@ $(document).ready(function () {
 
   //this is what happens when the button is clicked
   $(".btn-primary").on('click', function (e) {
-    var selValue = $('input[name=originalradio]:checked').val();
+    var selValue1 = $('input[name=originalradio]:checked').val();
+    var selValue2 = $('input[name=originalradio2]:checked').val();
+    var selValue3 = $('input[name=originalradio3]:checked').val();
+    var selValue4 = $('input[name=originalradio4]:checked').val();
+    var selValue5 = $('input[name=originalradio5]:checked').val();
+
     var date = new Date()
     var isoDate = date.toISOString()
-    localStorage.setItem(isoDate, selValue);
+    localStorage.setItem(isoDate, [selValue1, selValue2, selValue3, selValue4, selValue5]);
 
     refreshChart()
     // if(isoDate === isoDate) { //date is the same (this is not the way to write this) // FIXME: figure out how to check if date already exists
