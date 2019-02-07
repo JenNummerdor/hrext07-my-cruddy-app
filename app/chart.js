@@ -28,7 +28,7 @@ var chart = c3.generate({
     //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
     columns: [
       ['x'].concat(getDatesInLocalStorage()),
-      ["cups"].concat(getCupsInLocalStorage()),
+      ["cups of coffee"].concat(getCupsInLocalStorage()),
     ]
   },
   axis: {
