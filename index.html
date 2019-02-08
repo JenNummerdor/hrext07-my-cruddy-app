@@ -10,7 +10,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
   <script src="app/app.js"></script>
   <!-- lol css, popper, and bootstrap because it's gotta be PRETTY -->
-  <link rel="stylesheet" href="css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -23,15 +22,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.6.12/c3.js"></script>
 </head>
 
-<body>
-  <div class="container">
-    <div class="container-main">
-      <header>Poor Man's FitBit</header>
+<body style="background-color: #e2ffff">
+  <div class="container" style="background-color: white">
+    <div class="container-main"> 
+      <header><h1 style="text-align: center">Poor Man's FitBit</h1></header>
+
+      <ul class="nav" style="justify-content: center">
+          <li class="nav-item">
+            <a class="nav-link active" href="whythisexists.html">Why Does This Exist?</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="howitworks.html">How it Works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="flawswithproject.html">Flaws With This Project</a>
+          </li>
+        </ul>
+
       <div class="container-form">
         <!-- THIS IS THE ONE FOR CAFFEINE CONSUMPTION --------------------------------------------------------->
         <div class="form-check1">
           <div class="Question">
-            <h1>How's Your Coffee Consumption This Week?</h1>
+            <h2>How's Your Coffee Consumption This Week?</h2>
           </div>
           <input class="form-check-input1" type="radio" name="originalradio" id="coffee1" value="1" checked>
           <label class="form-check-label" for="coffee1">
@@ -66,7 +78,7 @@
         <!-- THIS IS THE ONE FOR SLEEPING --------------------------------------------------------->
         <div class="form-check2">
           <div class="Question">
-            <h1>How Much Have You Been Sleeping?</h1>
+            <h2>How Much Have You Been Sleeping?</h2>
           </div>
           <input class="form-check-input2" type="radio" name="originalradio2" id="sleeping1" value="1" checked>
           <label class="form-check-label" for="sleeping1">
@@ -100,7 +112,7 @@
         <!-- THIS IS THE ONE FOR SOCIAL LIFE --------------------------------------------------------->
         <div class="form-check3">
           <div class="Question">
-            <h1>Have You Been Talking to Anyone?</h1>
+            <h2>Have You Been Talking to Anyone?</h2>
           </div>
           <input class="form-check-input3" type="radio" name="originalradio3" id="social1" value="1" checked>
           <label class="form-check-label" for="social1">
@@ -135,7 +147,7 @@
         <!-- THIS IS THE ONE FOR DIET --------------------------------------------------------->
         <div class="form-check4">
           <div class="Question">
-            <h1>How Well Have You Been Eating?</h1>
+            <h2>How Well Have You Been Eating?</h2>
           </div>
           <input class="form-check-input4" type="radio" name="originalradio4" id="diet1" value="1" checked>
           <label class="form-check-label" for="diet1">
@@ -170,7 +182,7 @@
         <!-- THIS IS THE ONE FOR EXERCISE --------------------------------------------------------->
         <div class="form-check5">
           <div class="Question">
-            <h1>How Much Have You Been Exercising?</h1>
+            <h2>How Much Have You Been Exercising?</h2>
           </div>
           <input class="form-check-input5" type="radio" name="originalradio5" id="exercise1" value="1" checked>
           <label class="form-check-label" for="exercise1">
