@@ -7,7 +7,7 @@ $(document).ready(function () {
     chart.load({
       columns: [
         ['x'].concat(getDatesInLocalStorage()),
-        ["cups of coffee"].concat(getDataForChart()),
+        ["cups of coffee"].concat(getDataForChart.getCupsFunc()), 
       ]
     })
     for (let key in localStorage) {
