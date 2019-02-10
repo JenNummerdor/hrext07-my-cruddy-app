@@ -12,8 +12,13 @@ Create Read Update and Delete framework using JS
 - [ ] UI/UX considerations (how are we going to use this)
 
 ### Advanced Reqs
-- [ ] Create a form with radio buttons
-- [ ] Update graph based on information from radio buttons
-- [ ] Questions to answer for form
+- [√] Create a form with radio buttons
+- [√] Update graph based on information from radio buttons
+- [√] Questions to answer for form
+- [ ] Prevent user from adding more than once to graph -- offer a correction instead
 - [ ] How to click on points in graph to update data (is this even possible?)
 - [ ] Ignore above for now-work on creating updater by selecting date
+- [ ] Attach click handler to newly created data -> load graph (c3)
+- [ ] Create some sort of action when "correct last entry" is clicked
+- [ ] Add another form and get new form to display on graph
+- [ ] TOASTER ACTION

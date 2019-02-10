@@ -11,34 +11,17 @@ $(document).ready(function () {
 
     var selValue = $('input[name=exampleRadios]:checked').val();
 
-    console.log("this is the local storage get item", localStorage.getItem('Sat Feb 09 2019 20:49:26 GMT-0700 (Mountain Standard Time)'))
-    // write to db
-    var date = new Date()
-    console.log(date)
-    localStorage.setItem(date, selValue);
+    var date = new Date() 
+    var isoDate = date.toISOString()
+    localStorage.setItem(isoDate, selValue);
+
+    // if(isoDate === isoDate) { //date is the same
+    //   alert("Hey! You've already written your coffee intake for today.") //DO NOT WRITE TO DB
+    // }
+    
   });
 
-  //will return all the cups in local storage
-  var getCupsInLocalStorage = (function () {
-    var cupsArr = []
-    for (var key in localStorage) {
-      if (typeof localStorage[key] === 'string') {
-        cupsArr.push(localStorage[key])
-      }
-    }
-    console.log(cupsArr)
-  })()
 
-  //will return all the dates in local storage
-  var getDatesInLocalStorage = (function () {
-    var datesArr = []
-    for (var key in localStorage) {
-      if (typeof key === 'string' && key.length > 10) {
-        datesArr.push(key)
-      }
-    }
-    console.log(datesArr)
-  })()
 
   //update function will overwrite last entry written
 
