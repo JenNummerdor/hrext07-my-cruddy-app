@@ -7,6 +7,16 @@ interact with localstorage
 
 $(document).ready(function () {
 
+  //this needs to be available throughout the document:
+  var refreshChart = function(){
+    chart.load({
+      columns: [
+      ['x'].concat(getDatesInLocalStorage()),
+      ["cups"].concat(getCupsInLocalStorage()),]
+    })
+  }
+
+  //this is what happens when the button is clicked
   $(".btn-primary").on('click', function (e) {
 
     var selValue = $('input[name=exampleRadios]:checked').val();
@@ -15,15 +25,19 @@ $(document).ready(function () {
     var isoDate = date.toISOString()
     localStorage.setItem(isoDate, selValue);
 
-    // if(isoDate === isoDate) { //date is the same
+    // if(isoDate === isoDate) { //date is the same (this is not the way to write this)
     //   alert("Hey! You've already written your coffee intake for today.") //DO NOT WRITE TO DB
     // }
-    
+
+    //reload graph each time submit is clicked
+    refreshChart()
   });
 
-
-
-  //update function will overwrite last entry written
+  //update function will be pop down menu with dates, 
+  //select date 
+  //select form to correct
+  //will be taken to new form
+  //will change answer and submit for that date
 
   // delete item
   $('.container-data').on('click', '.display-data-item', function (e) {
@@ -31,6 +45,8 @@ $(document).ready(function () {
     var keyData = e.currentTarget.dataset.keyvalue;
     localStorage.removeItem(keyData);
     $('.container-data').text('');
+
+    
   });
   // delete all?
   $(".btn-danger").click(function () {
