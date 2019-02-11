@@ -44,14 +44,15 @@ var getDataForChart = {
   //FIX: the code block above is broken af
   getCupsFunc: function () {
     var cupsArr = []
+    var masterArr = (getDataForChart.getMasterFunc); //FIX: there must be a better way to access the masterArr.
     for (var i = 0; i < masterArr.length; i++) {
       cupsArr.push(masterArr[i][0])
     }
-    console.log(cupsArr)
     return cupsArr;
   },
   getSleepFunc: function () {
     var sleepArr = []
+    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       sleepArr.push(masterArr[i][2])
     }
@@ -59,6 +60,7 @@ var getDataForChart = {
   },
   getSocialFunc: function () {
     var socialArr = []
+    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       socialArr.push(masterArr[i][4])
     }
@@ -66,6 +68,7 @@ var getDataForChart = {
   },
   getDietFunc: function () {
     var dietArr = []
+    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       dietArr.push(masterArr[i][6])
     }
@@ -73,12 +76,14 @@ var getDataForChart = {
   },
   getExerciseFunc: function () {
     var exerciseArr = []
+    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       exerciseArr.push(masterArr[i][8])
     }
     return exerciseArr
   }
 }
+
 
 //will return all the dates in local storage
 var getDatesInLocalStorage = function () {
@@ -93,6 +98,7 @@ var getDatesInLocalStorage = function () {
   return datesArr;
 }
 
+//will generate the chart!
 var chart = c3.generate({
   data: {
     x: 'x',
@@ -100,7 +106,10 @@ var chart = c3.generate({
     columns: [
       ['x'].concat(getDatesInLocalStorage()),
       ["cups of coffee"].concat(getDataForChart.getCupsFunc()),
-      // ["hours of sleep"].concat(getHoursInLocalStorage()),
+      ["sleep"].concat(getDataForChart.getSleepFunc()),
+      ["social"].concat(getDataForChart.getSocialFunc()),
+      ["diet"].concat(getDataForChart.getDietFunc()),
+      ["exercise"].concat(getDataForChart.getExerciseFunc()),
     ]
   },
   axis: {
