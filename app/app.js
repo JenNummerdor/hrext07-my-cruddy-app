@@ -1,10 +1,3 @@
-/*
-Init app
-interact with DOM
-interact with localstorage
-
- */
-
 $(document).ready(function () {
 
   //this needs to be available throughout the document:
@@ -14,13 +7,12 @@ $(document).ready(function () {
       ['x'].concat(getDatesInLocalStorage()),
       ["cups"].concat(getCupsInLocalStorage()),]
     })
+    //this will also have to update the HTML with the update list of dates, right?
   }
 
   //this is what happens when the button is clicked
   $(".btn-primary").on('click', function (e) {
-
     var selValue = $('input[name=exampleRadios]:checked').val();
-
     var date = new Date() 
     var isoDate = date.toISOString()
     localStorage.setItem(isoDate, selValue);
@@ -28,30 +20,34 @@ $(document).ready(function () {
     // if(isoDate === isoDate) { //date is the same (this is not the way to write this)
     //   alert("Hey! You've already written your coffee intake for today.") //DO NOT WRITE TO DB
     // }
-
-    //reload graph each time submit is clicked
     refreshChart()
   });
 
   //update function will be pop down menu with dates, 
   //select date 
+    //GET data from local storage --am I going to have to rewrite this to the html document each time??
+    //display data from local storage
   //select form to correct
   //will be taken to new form
   //will change answer and submit for that date
 
   // delete item
-  $('.container-data').on('click', '.display-data-item', function (e) {
-    console.log(e.currentTarget.dataset.keyvalue);
-    var keyData = e.currentTarget.dataset.keyvalue;
-    localStorage.removeItem(keyData);
-    $('.container-data').text('');
-
-    
+  $('.btn-warning').on('click', function() {
+    var uneditedDatesArr = []
+    for(let key in localStorage) {
+      if (key.includes("2019")) {
+        uneditedDatesArr.push(key)
+      }
+    }
+    localStorage.removeItem(uneditedDatesArr[uneditedDatesArr.length -1])
+    refreshChart()
   });
+
+
   // delete all?
   $(".btn-danger").click(function () {
     localStorage.clear();
-    $('.container-data').text('');
+    refreshChart()
   });
 
 });
