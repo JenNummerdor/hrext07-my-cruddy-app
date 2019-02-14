@@ -49,7 +49,7 @@ $(document).ready(function () {
         $(".popup, .popup-content").addClass("active");
         // var prettyDate = uneditedDatesArr[i].slice(0, 10)
         var editThisOne = ($(this).text())
-        $("header").replaceWith(`<h2>Change Your Answer for ${editThisOne}</h2>`)
+        $("header").replaceWith(`<h2 style="color: red">Change Your Answer for ${editThisOne}</h2>`)
         //buttons
         //other form - hidden
         $(".btn-group").css({"display": "none"})
@@ -92,11 +92,9 @@ $(document).ready(function () {
     refreshChart()
   });
 
-  //works with the clear all button
+  //will display warning to user before deleting
   $(function () {
     $('[data-toggle="popover"]').popover()
   })
-
-
 
 });
