@@ -1,7 +1,7 @@
 //this object generates data for all parts of the chart
 var getDataForChart = {
   getMasterFunc: (function () {
-    var masterArr = [];
+    this.masterArr = [];
     for (var key in localStorage) {
       if (typeof localStorage[key] === 'string') {
         masterArr.push(localStorage[key]);
@@ -11,7 +11,6 @@ var getDataForChart = {
   })(),
   getWellBeingFunc: function () {
     var wellArr = []
-    var masterArr = (getDataForChart.getMasterFunc); //FIXME: there must be a better way to access the masterArr.
     for (var i = 0; i < masterArr.length; i++) {
       wellArr.push(masterArr[i][0])
     }
@@ -19,7 +18,6 @@ var getDataForChart = {
   },
   getSleepFunc: function () {
     var sleepArr = []
-    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       sleepArr.push(masterArr[i][2])
     }
@@ -27,7 +25,6 @@ var getDataForChart = {
   },
   getSocialFunc: function () {
     var socialArr = []
-    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       socialArr.push(masterArr[i][4])
     }
@@ -35,7 +32,6 @@ var getDataForChart = {
   },
   getDietFunc: function () {
     var dietArr = []
-    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       dietArr.push(masterArr[i][6])
     }
@@ -43,7 +39,6 @@ var getDataForChart = {
   },
   getExerciseFunc: function () {
     var exerciseArr = []
-    var masterArr = (getDataForChart.getMasterFunc);
     for (var i = 0; i < masterArr.length; i++) {
       exerciseArr.push(masterArr[i][8])
     }

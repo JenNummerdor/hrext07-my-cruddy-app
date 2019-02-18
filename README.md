@@ -21,6 +21,6 @@ Create Read Update and Delete framework using JS
 - [√] Add another form and get new form to display on graph
 - [√] Display all 5 types of data on graph
 - [√] Create sliding form -> not going to work at this stage
-- [ ] Update by date(what does that even look like?)
+- [ ] Update by date(what doeindes that even look like?)
 - [ ] ADD SOME STATS! STATS! STAAAAAAAATS!!!!!!
 - [ ] TOASTER ACTION
