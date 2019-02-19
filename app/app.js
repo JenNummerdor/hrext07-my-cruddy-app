@@ -1,21 +1,26 @@
 $(document).ready(function () {
 
-  //this needs to be available throughout the document:
   var uneditedDatesArr = []
+  // getDatesInLocalStorage() //problem is that this is not being constantly updated
 
   var refreshChart = function () {
     chart.load({
       columns: [
         ['x'].concat(getDatesInLocalStorage()),
-        ["cups of coffee"].concat(getDataForChart.getCupsFunc()), 
-      ]
+        ["cups of coffee"].concat(getDataForChart.getCupsFunc()),
+        ["sleep"].concat(getDataForChart.getSleepFunc()),
+        ["social"].concat(getDataForChart.getSocialFunc()),
+        ["diet"].concat(getDataForChart.getDietFunc()),
+        ["exercise"].concat(getDataForChart.getExerciseFunc()),
+      ],
     })
     for (let key in localStorage) {
       if (key.includes("2019") && !uneditedDatesArr.includes(key)) {
         uneditedDatesArr.push(key)
       }
     }
-    $(".dropdown-menu").empty()
+    return uneditedDatesArr;
+    // $(".dropdown-menu").empty()
   }
 
   //this is what happens when the button is clicked
@@ -29,8 +34,7 @@ $(document).ready(function () {
     var date = new Date()
     var isoDate = date.toISOString()
     localStorage.setItem(isoDate, [selValue1, selValue2, selValue3, selValue4, selValue5]);
-
-    refreshChart()
+    refreshChart();
     // if(isoDate === isoDate) { //date is the same (this is not the way to write this) // FIXME: figure out how to check if date already exists
     //   alert("Hey! You've already written your coffee intake for today.") //DO NOT WRITE TO DB
     // }
@@ -41,7 +45,7 @@ $(document).ready(function () {
     for (var i = 0; i < uneditedDatesArr.length; i++) {
       // var prettyDate = uneditedDatesArr[i].slice(0, 10)
       $(".dropdown-menu").add(`<a class="dropdown-item" type="button" id="date">${uneditedDatesArr[i]}</a>`).appendTo($(".dropdown-menu"))
-      //FIX: this still adds things it shouldn't. send help
+      //FIXME: this still adds things it shouldn't. send help
       $(".dropdown-item").on("click", function () {
         $(".popup, .popup-content").addClass("active");
         var editThisOne = ($(this).text())
@@ -50,12 +54,11 @@ $(document).ready(function () {
     }
   })
 
-  $(".btn-secondary").on("click", function() {
+  $(".btn-secondary").on("click", function () {
     var updateVal = $('input[name=popupradio]:checked').val();
-    console.log(updateVal)
     var wholeHeading = ($("h2").text())
     var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length))
-    
+
     localStorage.removeItem(currentWorkingDate)
     localStorage.setItem(currentWorkingDate, updateVal)
     refreshChart()
@@ -68,18 +71,21 @@ $(document).ready(function () {
   // delete item
   $('.btn-warning').on('click', function () {
     var lastElem = uneditedDatesArr.length - 1
-
     localStorage.removeItem(uneditedDatesArr[lastElem])
     uneditedDatesArr.splice(lastElem)
     refreshChart()
   });
 
   // delete all?
-  $(".btn-danger").click(function () {
+  $(".btn-danger").on("dblclick", function () {
     $(".dropdown-menu").empty()
     uneditedDatesArr = []
     localStorage.clear();
     refreshChart()
   });
+
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
 
 });

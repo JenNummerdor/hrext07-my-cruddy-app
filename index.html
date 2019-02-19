@@ -35,13 +35,13 @@
           </div>
           <input class="form-check-input1" type="radio" name="originalradio" id="coffee1" value="1" checked>
           <label class="form-check-label" for="coffee1">
-            I haven't had any coffee this week!
+              I'm drinking six or more cups per day!
           </label>
         </div>
         <div class="form-check1">
           <input class="form-check-input1" type="radio" name="originalradio" id="coffee2" value="2">
           <label class="form-check-label" for="coffee2">
-            I'm averaging about a cup a day
+              I've had about four or five cups
           </label>
         </div>
         <div class="form-check1">
@@ -53,13 +53,13 @@
         <div class="form-check1">
           <input class="form-check-input1" type="radio" name="originalradio" id="coffee4" value="4">
           <label class="form-check-label" for="coffee4">
-            I've had about four or five cups
+            I'm averaging about a cup a day
           </label>
         </div>
         <div class="form-check1">
           <input class="form-check-input1" type="radio" name="originalradio" id="coffee5" value="5">
           <label class="form-check-label" for="coffee5">
-            I'm drinking six or more cups per day!
+            I haven't had any coffee this week!
           </label>
         </div>
 
@@ -104,7 +104,7 @@
           </div>
           <input class="form-check-input3" type="radio" name="originalradio3" id="social1" value="1" checked>
           <label class="form-check-label" for="social1">
-            I've had 1 conversation (>10 min.) with someone I care about outside of class.
+            I've had 0-1 conversation (>10 min.) with someone I care about outside of class.
           </label>
         </div>
         <div class="form-check3">
@@ -139,7 +139,7 @@
           </div>
           <input class="form-check-input4" type="radio" name="originalradio4" id="diet1" value="1" checked>
           <label class="form-check-label" for="diet1">
-            I skipped meals or ate fast food 5 or more times this week.
+            I skipped 4 or more meals or ate fast food 5 or more times this week.
           </label>
         </div>
         <div class="form-check4">
@@ -214,14 +214,14 @@
             <a class="dropdown-item" type="button" id="date">Action</a>
           </div> <!-- button dropdown over  -->
           <button class="btn btn-warning">Delete Last</button>
-          <button class="btn btn-danger">Clear</button>
+          <button class="btn btn-danger" data-toggle="popover" title="Are You Sure?" data-content="This will delete ALL data! Double click to DELETE ALL. Click the button again to clear this message.">Clear All</button>
         </div>
       </div>
 
       <!--Creates the popup body-->
-      <div class="popup-overlay">
+      <!-- <div class="popup-overlay"> -->
         <!--Creates the popup content-->
-        <div class="popup-content">
+        <!-- <div class="popup-content">
           <h2>Change Your Answer</h2>
           <div class="form-check">
             <div class="Question">
@@ -256,11 +256,11 @@
               Four or more!
             </label>
             <button type="button" class="btn btn-secondary">Update</button>
-          </div>
+          </div> -->
           <!--popup's close button-->
-          <button class="close">Close</button>
+          <!-- <button class="close">Close</button>
         </div>
-      </div>
+      </div> -->
 
     </div>
     <div id="chart" style="max-height: 500px">Hello I am broken? </div>

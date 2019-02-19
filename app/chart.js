@@ -1,36 +1,3 @@
-// //will return all data in local storage
-// var getDataForChart = function () {
-//   var masterArr = []
-//   for (var key in localStorage) {
-//     if (typeof localStorage[key] === 'string') {
-//       masterArr.push(localStorage[key])
-//     }
-//   }
-//   var cupsArr = []
-//   for (var i = 0; i < masterArr.length; i++) {
-//     cupsArr.push(masterArr[i][0])
-//   }
-//   var sleepArr = []
-//   for (var i = 0; i < masterArr.length; i++) {
-//     sleepArr.push(masterArr[i][1])
-//   }
-//   var socialArr = []
-//   for (var i = 0; i < masterArr.length; i++) {
-//     socialArr.push(masterArr[i][2])
-//   }
-//   var dietArr = []
-//   for (var i = 0; i < masterArr.length; i++) {
-//     dietArr.push(masterArr[i][3])
-//   }
-//   var exerciseArr = []
-//   for (var i = 0; i < masterArr.length; i++) {
-//     exerciseArr.push(masterArr[i][4])
-//   }
-//   return cupsArr //, cupsArr, sleepArr, socialArr, dietArr, exerciseArr;
-// }
-
-//TESTING SOMETHING
-
 var getDataForChart = {
   getMasterFunc: (function () {
     var masterArr = [];
@@ -41,10 +8,9 @@ var getDataForChart = {
     }
     return masterArr
   })(),
-  //FIX: the code block above is broken af
   getCupsFunc: function () {
     var cupsArr = []
-    var masterArr = (getDataForChart.getMasterFunc); //FIX: there must be a better way to access the masterArr.
+    var masterArr = (getDataForChart.getMasterFunc); //FIXME: there must be a better way to access the masterArr.
     for (var i = 0; i < masterArr.length; i++) {
       cupsArr.push(masterArr[i][0])
     }
@@ -98,19 +64,19 @@ var getDatesInLocalStorage = function () {
   return datesArr;
 }
 
+var chartData = [
+  ['x'].concat(getDatesInLocalStorage()),
+  ["cups of coffee"].concat(getDataForChart.getCupsFunc()),
+  ["sleep"].concat(getDataForChart.getSleepFunc()),
+  ["social"].concat(getDataForChart.getSocialFunc()),
+  ["diet"].concat(getDataForChart.getDietFunc()),
+  ["exercise"].concat(getDataForChart.getExerciseFunc()),
+]
 //will generate the chart!
 var chart = c3.generate({
   data: {
     x: 'x',
-    //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
-    columns: [
-      ['x'].concat(getDatesInLocalStorage()),
-      ["cups of coffee"].concat(getDataForChart.getCupsFunc()),
-      ["sleep"].concat(getDataForChart.getSleepFunc()),
-      ["social"].concat(getDataForChart.getSocialFunc()),
-      ["diet"].concat(getDataForChart.getDietFunc()),
-      ["exercise"].concat(getDataForChart.getExerciseFunc()),
-    ]
+    columns: chartData,
   },
   axis: {
     x: {
