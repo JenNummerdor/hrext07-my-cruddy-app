@@ -20,7 +20,7 @@ Create Read Update and Delete framework using JS
 - [√] Attach click handler to newly created data -> load graph (c3)
 - [√] Load dates from edit menu
 - [√] Add another form and get new form to display on graph
-- [ ] Display all 5 types of data on graph
-- [ ] Create sliding form
+- [√] Display all 5 types of data on graph
+- [√ Create sliding form -> not going to work
 - [ ] Update by date(what does that even look like?)
 - [ ] TOASTER ACTION

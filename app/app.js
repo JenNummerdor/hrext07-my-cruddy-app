@@ -43,13 +43,18 @@ $(document).ready(function () {
 
   $(".btn-success").on("click", function () {
     for (var i = 0; i < uneditedDatesArr.length; i++) {
-      // var prettyDate = uneditedDatesArr[i].slice(0, 10)
       $(".dropdown-menu").add(`<a class="dropdown-item" type="button" id="date">${uneditedDatesArr[i]}</a>`).appendTo($(".dropdown-menu"))
       //FIXME: this still adds things it shouldn't. send help
       $(".dropdown-item").on("click", function () {
         $(".popup, .popup-content").addClass("active");
+        // var prettyDate = uneditedDatesArr[i].slice(0, 10)
         var editThisOne = ($(this).text())
-        $("h2").replaceWith(`<h2>Change Your Answer for ${editThisOne}</h2>`)
+        $("header").replaceWith(`<h2>Change Your Answer for ${editThisOne}</h2>`)
+        //buttons
+        //other form - hidden
+        $(".btn-group").css({"display": "none"})
+        $(".btn-secondary").css({"display": "inline"})
+        $(".btn-outline-secondary").css({"display": "inline"})
       });
     }
   })
@@ -59,13 +64,16 @@ $(document).ready(function () {
     var wholeHeading = ($("h2").text())
     var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length))
 
+    $(".container-form").css({"display": "block"})
     localStorage.removeItem(currentWorkingDate)
     localStorage.setItem(currentWorkingDate, updateVal)
     refreshChart()
   })
 
-  $("window.document").on("click", function () {
-    $(".popup, .popup-content").removeClass("active");
+  $(".btn-outline-secondary").on("click", function () {
+    $(".btn-group").css({"display": "inline"})
+    $(".btn-secondary").css({"display": "none"})
+    $(".btn-outline-secondary").css({"display": "none"})
   });
 
   // delete item
@@ -84,8 +92,11 @@ $(document).ready(function () {
     refreshChart()
   });
 
+  //works with the clear all button
   $(function () {
     $('[data-toggle="popover"]').popover()
   })
+
+
 
 });
