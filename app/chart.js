@@ -8,13 +8,13 @@ var getDataForChart = {
     }
     return masterArr
   })(),
-  getCupsFunc: function () {
-    var cupsArr = []
+  getWellBeingFunc: function () {
+    var wellArr = []
     var masterArr = (getDataForChart.getMasterFunc); //FIXME: there must be a better way to access the masterArr.
     for (var i = 0; i < masterArr.length; i++) {
-      cupsArr.push(masterArr[i][0])
+      wellArr.push(masterArr[i][0])
     }
-    return cupsArr;
+    return wellArr;
   },
   getSleepFunc: function () {
     var sleepArr = []
@@ -66,7 +66,7 @@ var getDatesInLocalStorage = function () {
 
 var chartData = [
   ['x'].concat(getDatesInLocalStorage()),
-  ["cups of coffee"].concat(getDataForChart.getCupsFunc()),
+  ["overall wellbeing"].concat(getDataForChart.getWellBeingFunc()),
   ["sleep"].concat(getDataForChart.getSleepFunc()),
   ["social"].concat(getDataForChart.getSocialFunc()),
   ["diet"].concat(getDataForChart.getDietFunc()),

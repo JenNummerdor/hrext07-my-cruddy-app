@@ -24,54 +24,56 @@
 
 <body style="background-color: #e2ffff">
   <div class="container" style="background-color: white">
-    <div class="container-main"> 
-      <header><h1 style="text-align: center">Poor Man's FitBit</h1></header>
+    <div class="container-main">
+      <header>
+        <h1 style="text-align: center">Poor Man's FitBit</h1>
+      </header>
 
       <ul class="nav" style="justify-content: center">
-          <li class="nav-item">
-            <a class="nav-link active" href="whythisexists.html">Why Does This Exist?</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="howitworks.html">How it Works</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="flawswithproject.html">Flaws With This Project</a>
-          </li>
-        </ul>
+        <li class="nav-item">
+          <a class="nav-link active" href="whythisexists.html">Why Does This Exist?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="howitworks.html">How it Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="flawswithproject.html">Flaws With This Project</a>
+        </li>
+      </ul>
 
       <div class="container-form">
         <!-- THIS IS THE ONE FOR CAFFEINE CONSUMPTION --------------------------------------------------------->
         <div class="form-check1">
           <div class="Question">
-            <h2>How's Your Coffee Consumption This Week?</h2>
+            <h2>How's Did You Feel Overall This Week?</h2>
           </div>
-          <input class="form-check-input1" type="radio" name="originalradio" id="coffee1" value="1" checked>
-          <label class="form-check-label" for="coffee1">
-            I'm drinking six or more cups per day!
+          <input class="form-check-input1" type="radio" name="originalradio" id="mood1" value="1" checked>
+          <label class="form-check-label" for="mood1">
+            I felt awful! I was in a bad mood for 5+ days this week.
           </label>
         </div>
         <div class="form-check1">
-          <input class="form-check-input1" type="radio" name="originalradio" id="coffee2" value="2">
-          <label class="form-check-label" for="coffee2">
-            I've had about four or five cups
+          <input class="form-check-input1" type="radio" name="originalradio" id="mood2" value="2">
+          <label class="form-check-label" for="mood2">
+            I felt mostly melancholy. I was in poor spirits for 4 days this week.
           </label>
         </div>
         <div class="form-check1">
-          <input class="form-check-input1" type="radio" name="originalradio" id="coffee3" value="3">
-          <label class="form-check-label" for="coffee3">
-            I'm having two or three cups per day
+          <input class="form-check-input1" type="radio" name="originalradio" id="mood3" value="3">
+          <label class="form-check-label" for="mood3">
+            I felt half good and half bad this week. 
           </label>
         </div>
         <div class="form-check1">
-          <input class="form-check-input1" type="radio" name="originalradio" id="coffee4" value="4">
-          <label class="form-check-label" for="coffee4">
-            I'm averaging about a cup a day
+          <input class="form-check-input1" type="radio" name="originalradio" id="mood4" value="4">
+          <label class="form-check-label" for="mood4">
+            I felt mostly in control and happy for 4 days this week.
           </label>
         </div>
         <div class="form-check1">
-          <input class="form-check-input1" type="radio" name="originalradio" id="coffee5" value="5">
-          <label class="form-check-label" for="coffee5">
-            I haven't had any coffee this week!
+          <input class="form-check-input1" type="radio" name="originalradio" id="mood5" value="5">
+          <label class="form-check-label" for="mood5">
+              I felt great for 5 or more days this week.
           </label>
         </div>
 
@@ -234,10 +236,24 @@
       </div>
     </div>
     <div id="chart" style="max-height: 500px">Hello! If you see this, I am broken. D: </div>
+    <div class="container">
+      <br>
+      <h2 style="text-align: center"> Correlative Significance</h2>
+      <br>
+      <br>
+      <!-- the data must go here. -->
+      <p class="sleepsig"> The effects of sleep on overall wellbeing: </p>
+      <p class="socialsig"> The effects of social life on overall wellbeing: </p>
+      <p class="dietsig"> The effects of diet on overall wellbeing: </p>
+      <p class ="exercisesig"> The effects of exercise on overall wellbeing: </p>
+      <br>
+      <br>
+    </div>
   </div>
   <script src="./app/chart.js"></script>
   </div>
   </div>
   </div>
 </body>
+
 </html>

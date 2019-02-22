@@ -1,13 +1,13 @@
 $(document).ready(function () {
 
-  var uneditedDatesArr = []
+  var uneditedDatesArr = [] //this will include all parts of the time stamp but not any extra data that may or may not be pushed in by accident.
   // getDatesInLocalStorage() //problem is that this is not being constantly updated
 
   var refreshChart = function () {
     chart.load({
       columns: [
         ['x'].concat(getDatesInLocalStorage()),
-        ["cups of coffee"].concat(getDataForChart.getCupsFunc()),
+        ["overall wellbeing"].concat(getDataForChart.getWellBeingFunc()),
         ["sleep"].concat(getDataForChart.getSleepFunc()),
         ["social"].concat(getDataForChart.getSocialFunc()),
         ["diet"].concat(getDataForChart.getDietFunc()),
@@ -16,7 +16,7 @@ $(document).ready(function () {
     })
     for (let key in localStorage) {
       if (key.includes("2019") && !uneditedDatesArr.includes(key)) {
-        uneditedDatesArr.push(key)
+        uneditedDatesArr.push(key.slice(0, 24))
       }
     }
     return uneditedDatesArr;
@@ -50,11 +50,15 @@ $(document).ready(function () {
         // var prettyDate = uneditedDatesArr[i].slice(0, 10)
         var editThisOne = ($(this).text())
         $("header").replaceWith(`<h2 style="color: red">Change Your Answer for ${editThisOne}</h2>`)
-        //buttons
-        //other form - hidden
-        $(".btn-group").css({"display": "none"})
-        $(".btn-secondary").css({"display": "inline"})
-        $(".btn-outline-secondary").css({"display": "inline"})
+        $(".btn-group").css({
+          "display": "none"
+        })
+        $(".btn-secondary").css({
+          "display": "inline"
+        })
+        $(".btn-outline-secondary").css({
+          "display": "inline"
+        })
       });
     }
   })
@@ -66,18 +70,26 @@ $(document).ready(function () {
     var selValue4 = $('input[name=originalradio4]:checked').val();
     var selValue5 = $('input[name=originalradio5]:checked').val();
     var wholeHeading = ($("h2").text())
-    var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length))
+    var currentWorkingDate = (wholeHeading.slice(23, 47)) //this will slice the heading after the current date and before any of the irrelvant information that also somehow gets passed into this function
 
-    $(".container-form").css({"display": "block"})
+    $(".container-form").css({
+      "display": "block"
+    })
     localStorage.removeItem(currentWorkingDate)
     localStorage.setItem(currentWorkingDate, [selValue1, selValue2, selValue3, selValue4, selValue5]);
     refreshChart()
   })
 
   $(".btn-outline-secondary").on("click", function () {
-    $(".btn-group").css({"display": "inline"})
-    $(".btn-secondary").css({"display": "none"})
-    $(".btn-outline-secondary").css({"display": "none"})
+    $(".btn-group").css({
+      "display": "inline"
+    })
+    $(".btn-secondary").css({
+      "display": "none"
+    })
+    $(".btn-outline-secondary").css({
+      "display": "none"
+    })
   });
 
   // delete item
@@ -100,5 +112,75 @@ $(document).ready(function () {
   $(function () {
     $('[data-toggle="popover"]').popover()
   })
+
+  //statistical data
+  var wellbeingArr = getDataForChart.getWellBeingFunc()
+  var wellbeingMean = ((wellbeingArr.map(x => eval(x))).reduce((x, y) => x + y) / wellbeingArr.length)
+  var getAVals = function () {
+    var a = []
+    for (var i = 0; i < wellbeingArr.length; i++) {
+      a.push(eval(wellbeingArr[i]) - wellbeingMean)
+    }
+    return a;
+  }
+
+  var sleepArr = getDataForChart.getSleepFunc()
+  var sleepMean = ((sleepArr.map(x => eval(x))).reduce((x, y) => x + y) / sleepArr.length)
+  var getBVals = function () {
+    var b = []
+    for (var i = 0; i < sleepArr.length; i++) {
+      b.push(eval(sleepArr[i]) - sleepMean)
+    }
+    return b;
+  }
+
+  var multiplyAAndB = function () {
+    var aArr = getAVals() //[1, -1]
+    var bArr = getBVals() //[0.5, -0.5]
+    var resultArr = [];
+    for (var i = 0; i < aArr.length; i++) {
+      resultArr.push(aArr[i] * bArr[i])
+    }
+    return resultArr.reduce((x, y) => x + y)
+  }
+
+  var getASquared = function () {
+    var aArr = getAVals() //[1, -1]
+    var resultArr = [];
+    for (var i = 0; i < aArr.length; i++) {
+      resultArr.push(aArr[i] * aArr[i])
+    }
+    return resultArr.reduce((x, y) => x + y)
+  }
+
+  var getBSquared = function () {
+    var bArr = getBVals() //[1, -1]
+    var resultArr = [];
+    for (var i = 0; i < bArr.length; i++) {
+      resultArr.push(bArr[i] * bArr[i])
+    }
+    return resultArr.reduce((x, y) => x + y)
+  }
+
+  var relationalDataBetweenAAndB = function () {
+    console.log(multiplyAAndB())
+    return (multiplyAAndB() / (Math.sqrt(getASquared() * getBSquared())))
+  }
+
+  // if(wellbeingArr.length <4) {
+  //   $(".sleepsig").append("You will want at least three points of data before proceeding")
+  // }
+  $(".sleepsig").append(relationalDataBetweenAAndB())
+
+  //NOT DONE
+
+  var socialArr = getDataForChart.getSocialFunc()
+  var socialMean = ((socialArr.map(x => eval(x))).reduce((x, y) => x + y) / socialArr.length)
+
+  var dietArr = getDataForChart.getDietFunc()
+  var dietMean = ((dietArr.map(x => eval(x))).reduce((x, y) => x + y) / dietArr.length)
+
+  var exerciseArr = getDataForChart.getExerciseFunc()
+  var exerciseMean = ((exerciseArr.map(x => eval(x))).reduce((x, y) => x + y) / exerciseArr.length)
 
 });
