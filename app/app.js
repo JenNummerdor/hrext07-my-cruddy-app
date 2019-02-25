@@ -24,7 +24,7 @@ $(document).ready(function () {
   }
 
   //this is what happens when the button is clicked
-  $(".btn-primary").on('click', function (e) {
+  $(".btn-primary").on('click', function () {
     var selValue1 = $('input[name=originalradio]:checked').val();
     var selValue2 = $('input[name=originalradio2]:checked').val();
     var selValue3 = $('input[name=originalradio3]:checked').val();
@@ -60,13 +60,17 @@ $(document).ready(function () {
   })
 
   $(".btn-secondary").on("click", function () {
-    var updateVal = $('input[name=popupradio]:checked').val();
+    var selValue1 = $('input[name=originalradio]:checked').val();
+    var selValue2 = $('input[name=originalradio2]:checked').val();
+    var selValue3 = $('input[name=originalradio3]:checked').val();
+    var selValue4 = $('input[name=originalradio4]:checked').val();
+    var selValue5 = $('input[name=originalradio5]:checked').val();
     var wholeHeading = ($("h2").text())
     var currentWorkingDate = (wholeHeading.slice(23, wholeHeading.length))
 
     $(".container-form").css({"display": "block"})
     localStorage.removeItem(currentWorkingDate)
-    localStorage.setItem(currentWorkingDate, updateVal)
+    localStorage.setItem(currentWorkingDate, [selValue1, selValue2, selValue3, selValue4, selValue5]);
     refreshChart()
   })
 
