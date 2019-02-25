@@ -5,7 +5,7 @@ $(document).ready(function () {
 
   var refreshChart = function () {
     chart.load({
-      columns: [
+      columns: [ 
         ['x'].concat(getDatesInLocalStorage()),
         ["overall wellbeing"].concat(getDataForChart.getWellBeingFunc()),
         ["sleep"].concat(getDataForChart.getSleepFunc()),
@@ -19,12 +19,12 @@ $(document).ready(function () {
         uneditedDatesArr.push(key.slice(0, 24))
       }
     }
+    $(".dropdown-menu").empty()
     return uneditedDatesArr;
-    // $(".dropdown-menu").empty()
   }
 
-  //this is what happens when the button is clicked
-  $(".btn-primary").on('click', function () {
+  //this is what happens when the submit button is clicked
+  $(".btn-primary").on('click', function () { //IF YOU BREAK IT, PUT IT BACK
     var selValue1 = $('input[name=originalradio]:checked').val();
     var selValue2 = $('input[name=originalradio2]:checked').val();
     var selValue3 = $('input[name=originalradio3]:checked').val();
@@ -40,7 +40,7 @@ $(document).ready(function () {
     // }
   });
 
-
+//click on green edit button
   $(".btn-success").on("click", function () {
     for (var i = 0; i < uneditedDatesArr.length; i++) {
       $(".dropdown-menu").add(`<a class="dropdown-item" type="button" id="date">${uneditedDatesArr[i]}</a>`).appendTo($(".dropdown-menu"))
@@ -63,6 +63,12 @@ $(document).ready(function () {
     }
   })
 
+  $(document).on("click", function () {
+    $(".dropdown-menu").empty()
+    refreshChart()
+  })
+
+  //making edits after clicking on a date through edit button
   $(".btn-secondary").on("click", function () {
     var selValue1 = $('input[name=originalradio]:checked').val();
     var selValue2 = $('input[name=originalradio2]:checked').val();
@@ -107,6 +113,10 @@ $(document).ready(function () {
     localStorage.clear();
     refreshChart()
   });
+
+  $(".btn-danger").on("click", function () {
+    $(".dropdown-menu").empty()
+  })
 
   //will display warning to user before deleting
   $(function () {
